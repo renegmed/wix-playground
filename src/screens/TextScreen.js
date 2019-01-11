@@ -35,10 +35,16 @@ class TextScreen extends Component {
           <Button title='Show Left Side Menu' testID={testIDs.SHOW_LEFT_SIDE_MENU_BUTTON} onPress={() => this.showSideMenu('left')} />
           <Button title='Show Right Side Menu' testID={testIDs.SHOW_RIGHT_SIDE_MENU_BUTTON} onPress={() => this.showSideMenu('right')} /> 
           <Button title='Push and Pop' testID={testIDs.PUSH_AND_POP_BUTTON} onPress={this.onClickPushPop} />
+          <Button title='Dismiss modal' testID={testIDs.DISMISS_MODAL_BUTTON} onPress={this.onClickDismissModal} />
         </View>
       </Bounds>
     );
   } 
+  
+  onClickDismissModal = () => {
+    Navigation.dismissModal(this.props.componentId);
+  }
+
   
   onClickPushPop = async () => {
     await Navigation.push(this.props.componentId, {
