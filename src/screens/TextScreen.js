@@ -32,10 +32,22 @@ class TextScreen extends Component {
           { Platform.OS === 'android' && <Button title='Hide Tab Bar' testID={testIDs.HIDE_BOTTOM_TABS_BUTTON} onPress={() => this.toggleTabBarVisibility(this.props.componentId, false)} /> }
           { Platform.OS === 'android' && <Button title='Show Tab Bar' testID={testIDs.SHOW_BOTTOM_TABS_BUTTON} onPress={() => this.toggleTabBarVisibility('BottomTabs', true)} /> }
           <Button title='Hide Tab Bar on Push' testID={testIDs.HIDE_BOTTOM_TABS_ON_PUSH_BUTTON} onPress={() => this.hideTabBarOnPush()} />
+          <Button title='Show Left Side Menu' testID={testIDs.SHOW_LEFT_SIDE_MENU_BUTTON} onPress={() => this.showSideMenu('left')} />
+          <Button title='Show Right Side Menu' testID={testIDs.SHOW_RIGHT_SIDE_MENU_BUTTON} onPress={() => this.showSideMenu('right')} />
         </View>
       </Bounds>
     );
   } 
+
+  showSideMenu(side) { 
+    Navigation.mergeOptions(this.props.componentId, {
+      sideMenu: {
+        [side]: {
+          visible: true
+        }
+      }
+    });
+  }
 
   hideTabBarOnPush() {
     Navigation.push(this.props.componentId, {
@@ -44,7 +56,7 @@ class TextScreen extends Component {
       }
     });
   }
-  
+
   toggleTabBarVisibility(componentId, visible) {
     Navigation.mergeOptions(componentId, {
       bottomTabs: {
