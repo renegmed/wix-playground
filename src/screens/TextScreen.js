@@ -22,11 +22,22 @@ class TextScreen extends Component {
       <Bounds>
         <View style={styles.root}>
           <Text style={styles.h1} testID={testIDs.CENTERED_TEXT_HEADER}>{this.props.text || 'Text Screen'}</Text> 
+          {this.renderTextFromFunctionInProps()}         
         </View>
       </Bounds>
     );
   } 
   
+  renderTextFromFunctionInProps() {
+    if (!this.props.myFunction) {
+        return undefined;
+    }
+    return (
+        <Text style={styles.h1}>{this.props.myFunction()}</Text>
+    );
+  }
+
+
 }
 
 export default TextScreen;
