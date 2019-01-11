@@ -1,5 +1,7 @@
-import React, { Component } from 'react'; 
-import { View, Text, StyleSheet  }  from 'react-native'; 
+import React, { Component } from 'react';  
+import { View, Text, StyleSheet  }  from 'react-native';
+import { Navigation } from 'react-native-navigation';
+import Button from './Button';
 
 const testIDs = require('../constants.js'); 
 
@@ -29,17 +31,113 @@ class WelcomeScreen extends Component {
         return (
             <View style={styles.bar}>
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
-                <View style={styles.root} key={'root'}>
-                    <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text> 
+                <View style={styles.root} key={'root'}> 
+                    <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text>
+                    <Button title='Switch to tab based app' testID={testIDs.TAB_BASED_APP_BUTTON} onPress={this.onClickSwitchToTabs} /> 
                 </View>
                 
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
             </View>
         );
-    }
-}
+    } 
+ 
+    onClickSwitchToTabs = () => {
 
-
+        Navigation.setRoot({
+            root: {
+            bottomTabs: {
+              id: 'BottomTabs',
+              children: [
+                {
+                  stack: {
+                    id: 'TAB1_ID',
+                    children: [
+                      {
+                        component: {
+                          name: 'navigation.playground.TextScreen',
+                          passProps: {
+                            text: 'This is tab 1',
+                            myFunction: () => 'Hello from a function!'
+                          },
+                          options: {
+                            topBar: {
+                              visible: true,
+                              animate: false,
+                              title: {
+                                text: 'React Native Navigation!'
+                              }
+                            },
+                            bottomTab: {
+                              text: 'Tab 1',
+                              icon: require('../images/one.png'),
+                              selectedIcon: require('../images/one.png'),
+                              testID: testIDs.FIRST_TAB_BAR_BUTTON
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      topBar: {
+                        visible: false
+                      }
+                    }
+                  }
+                },
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'navigation.playground.TextScreen',
+                          passProps: {
+                            text: 'This is tab 2'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      bottomTab: {
+                        text: 'Tab 2',
+                        icon: require('../images/two.png'),
+                        testID: testIDs.SECOND_TAB_BAR_BUTTON
+                      }
+                    }
+                  }
+                },
+                {
+                  component: {
+                    name: 'navigation.playground.TextScreen',
+                    passProps: {
+                      text: 'This is tab 3',
+                      myFunction: () => 'Hello from a function!'
+                    },
+                    options: {
+                      topBar: {
+                        visible: true,
+                        animate: false
+                      },
+                      bottomTab: {
+                        text: 'Tab 3',
+                        icon: require('../images/one.png'),
+                        selectedIcon: require('../images/one.png')
+                      }
+                    }
+                  }
+                }
+              ],
+              options: {
+                bottomTabs: {
+                  titleDisplayMode: 'alwaysShow',
+                  testID: testIDs.BOTTOM_TABS_ELEMENT
+                }
+              }
+            }
+          }
+            });
+        }
+    }  
+  
 const styles = StyleSheet.create({
     root: {
       flexGrow: 1,
