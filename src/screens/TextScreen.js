@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import { View, Text, StyleSheet, Button } from 'react-native'; 
- 
+import { Navigation } from 'react-native-navigation'; 
 import testIDs from '../constants';
 import Bounds from '../components/Bounds';
 
@@ -24,7 +24,8 @@ class TextScreen extends Component {
           <Text style={styles.h1} testID={testIDs.CENTERED_TEXT_HEADER}>{this.props.text || 'Text Screen'}</Text> 
           {this.renderTextFromFunctionInProps()}
           <Text style={styles.footer}>{`this.props.componentId = ${this.props.componentId}`}</Text> 
-          <Button title={'Set Tab Badge'} testID={testIDs.SET_TAB_BADGE_BUTTON} onPress={() => this.onClickSetBadge()} />        
+          <Button title={'Set Tab Badge'} testID={testIDs.SET_TAB_BADGE_BUTTON} onPress={() => this.onClickSetBadge()} />
+          <Button title={'Set empty Tab Badge'} testID={testIDs.SET_TAB_BADGE_BUTTON_NULL} onPress={() => this.onClickSetNullBadge()} />        
         </View>
       </Bounds>
     );
@@ -34,6 +35,14 @@ class TextScreen extends Component {
     Navigation.mergeOptions(this.props.componentId, {
       bottomTab: {
         badge: `TeSt`
+      }
+    });
+  }
+
+  onClickSetNullBadge() {
+    Navigation.mergeOptions(this.props.componentId, {
+      bottomTab: {
+        badge: ''
       }
     });
   }
