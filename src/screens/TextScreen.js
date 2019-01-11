@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { View, Text, StyleSheet, Button } from 'react-native'; 
+import { View, Text, StyleSheet, Button, Platform } from 'react-native'; 
 import { Navigation } from 'react-native-navigation'; 
 import testIDs from '../constants';
 import Bounds from '../components/Bounds';
@@ -28,11 +28,25 @@ class TextScreen extends Component {
           <Button title={'Set empty Tab Badge'} testID={testIDs.SET_TAB_BADGE_BUTTON_NULL} onPress={() => this.onClickSetNullBadge()} /> 
           <Button title={'Switch To Tab 2'} testID={testIDs.SWITCH_SECOND_TAB_BUTTON} onPress={() => this.onClickSwitchToTab()} />
           <Button title={'Switch To Tab 1 by componentID'} testID={testIDs.SWITCH_FIRST_TAB_BUTTON} onPress={() => this.onClickSwitchToTabByComponentID()} />              
+          {/* tslint:disable-next-line:max-line-length */}
+          { Platform.OS === 'android' && <Button title='Hide Tab Bar' testID={testIDs.HIDE_BOTTOM_TABS_BUTTON} onPress={() => this.toggleTabBarVisibility(this.props.componentId, false)} /> }
+          { Platform.OS === 'android' && <Button title='Show Tab Bar' testID={testIDs.SHOW_BOTTOM_TABS_BUTTON} onPress={() => this.toggleTabBarVisibility('BottomTabs', true)} /> }
+          
         </View>
       </Bounds>
     );
   } 
 
+  toggleTabBarVisibility(componentId, visible) {
+    Navigation.mergeOptions(componentId, {
+      bottomTabs: {
+        visible,
+        drawBehind: true,
+        animate: true
+      }
+    });
+  }
+  
   onClickSwitchToTab() {
     Navigation.mergeOptions(this.props.componentId, {
       bottomTabs: {
