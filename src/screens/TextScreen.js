@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { View, Text, StyleSheet } from 'react-native'; 
+import { View, Text, StyleSheet, Button } from 'react-native'; 
  
 import testIDs from '../constants';
 import Bounds from '../components/Bounds';
@@ -22,12 +22,22 @@ class TextScreen extends Component {
       <Bounds>
         <View style={styles.root}>
           <Text style={styles.h1} testID={testIDs.CENTERED_TEXT_HEADER}>{this.props.text || 'Text Screen'}</Text> 
-          {this.renderTextFromFunctionInProps()}         
+          {this.renderTextFromFunctionInProps()}
+          <Text style={styles.footer}>{`this.props.componentId = ${this.props.componentId}`}</Text> 
+          <Button title={'Set Tab Badge'} testID={testIDs.SET_TAB_BADGE_BUTTON} onPress={() => this.onClickSetBadge()} />        
         </View>
       </Bounds>
     );
   } 
-  
+
+  onClickSetBadge() {
+    Navigation.mergeOptions(this.props.componentId, {
+      bottomTab: {
+        badge: `TeSt`
+      }
+    });
+  }
+
   renderTextFromFunctionInProps() {
     if (!this.props.myFunction) {
         return undefined;
