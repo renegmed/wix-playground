@@ -1,5 +1,7 @@
 import React, { Component } from 'react'; 
 import { View, Text, StyleSheet  }  from 'react-native'; 
+import { Navigation } from 'react-native-navigation';
+import Button from './Button';
 
 const testIDs = require('../constants.js'); 
 
@@ -31,11 +33,20 @@ class WelcomeScreen extends Component {
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
                 <View style={styles.root} key={'root'}>
                     <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text> 
+                    <Button title='Push Lifecycle Screen' testID={testIDs.PUSH_LIFECYCLE_BUTTON} onPress={this.onClickLifecycleScreen} />
                 </View>
                 
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
             </View>
         );
+    }
+
+    onClickLifecycleScreen = () => {
+        Navigation.push(this.props.componentId, {
+          component: {
+            name: 'navigation.playground.LifecycleScreen'
+          }
+        });
     }
 }
 
