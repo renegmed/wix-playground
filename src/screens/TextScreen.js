@@ -31,12 +31,20 @@ class TextScreen extends Component {
           {/* tslint:disable-next-line:max-line-length */}
           { Platform.OS === 'android' && <Button title='Hide Tab Bar' testID={testIDs.HIDE_BOTTOM_TABS_BUTTON} onPress={() => this.toggleTabBarVisibility(this.props.componentId, false)} /> }
           { Platform.OS === 'android' && <Button title='Show Tab Bar' testID={testIDs.SHOW_BOTTOM_TABS_BUTTON} onPress={() => this.toggleTabBarVisibility('BottomTabs', true)} /> }
-          
+          <Button title='Hide Tab Bar on Push' testID={testIDs.HIDE_BOTTOM_TABS_ON_PUSH_BUTTON} onPress={() => this.hideTabBarOnPush()} />
         </View>
       </Bounds>
     );
   } 
 
+  hideTabBarOnPush() {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'navigation.playground.PushedScreen'
+      }
+    });
+  }
+  
   toggleTabBarVisibility(componentId, visible) {
     Navigation.mergeOptions(componentId, {
       bottomTabs: {
