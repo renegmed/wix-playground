@@ -25,11 +25,32 @@ class TextScreen extends Component {
           {this.renderTextFromFunctionInProps()}
           <Text style={styles.footer}>{`this.props.componentId = ${this.props.componentId}`}</Text> 
           <Button title={'Set Tab Badge'} testID={testIDs.SET_TAB_BADGE_BUTTON} onPress={() => this.onClickSetBadge()} />
-          <Button title={'Set empty Tab Badge'} testID={testIDs.SET_TAB_BADGE_BUTTON_NULL} onPress={() => this.onClickSetNullBadge()} />        
+          <Button title={'Set empty Tab Badge'} testID={testIDs.SET_TAB_BADGE_BUTTON_NULL} onPress={() => this.onClickSetNullBadge()} /> 
+          <Button title={'Switch To Tab 2'} testID={testIDs.SWITCH_SECOND_TAB_BUTTON} onPress={() => this.onClickSwitchToTab()} />
+          <Button title={'Switch To Tab 1 by componentID'} testID={testIDs.SWITCH_FIRST_TAB_BUTTON} onPress={() => this.onClickSwitchToTabByComponentID()} />              
         </View>
       </Bounds>
     );
   } 
+
+  onClickSwitchToTab() {
+    Navigation.mergeOptions(this.props.componentId, {
+      bottomTabs: {
+        currentTabIndex: 1,
+        visible: true,
+        drawBehind: true,
+        animate: true
+      }
+    });
+  }
+  
+  onClickSwitchToTabByComponentID() {
+    Navigation.mergeOptions(this.props.componentId, {
+      bottomTabs: {
+        currentTabId: 'TAB1_ID'
+      }
+    });
+  }
 
   onClickSetBadge() {
     Navigation.mergeOptions(this.props.componentId, {
