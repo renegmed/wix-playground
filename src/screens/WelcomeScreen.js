@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 import { View, Text, StyleSheet  }  from 'react-native'; 
-
+import { Navigation } from 'react-native-navigation';
+import Button from './Button';
 const testIDs = require('../constants.js'); 
 
 class WelcomeScreen extends Component { 
@@ -30,12 +31,38 @@ class WelcomeScreen extends Component {
             <View style={styles.bar}>
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
                 <View style={styles.root} key={'root'}>
-                    <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text> 
+                    <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text>
+                    <Button title='Push' testID={testIDs.PUSH_BUTTON} onPress={this.onClickPush} /> 
                 </View>
                 
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
             </View>
         );
+    }
+
+    onClickPush = () => {
+        Navigation.push(this.props.componentId, {
+          component: {
+            name: 'navigation.playground.PushedScreen',
+            options: {
+              layout: {
+                
+              },
+              topBar: {
+                title: {
+                  text: 'pushed',
+                  color: '#0000ff',
+                  fontSize: 14
+                },
+                subtitle: {
+                  text: 'subtitle',
+                  fontSize: 10,
+                  color: '#00ff00'
+                }
+              }
+            }
+          }
+        });
     }
 }
 
