@@ -1,5 +1,7 @@
 import React, { Component } from 'react'; 
-import { View, Text, StyleSheet  }  from 'react-native'; 
+import { View, Text, StyleSheet, Platform  }  from 'react-native'; 
+import { Navigation } from 'react-native-navigation';
+import Button from './Button'
 
 const testIDs = require('../constants.js'); 
 
@@ -31,11 +33,20 @@ class WelcomeScreen extends Component {
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
                 <View style={styles.root} key={'root'}>
                     <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text> 
+                    {Platform.OS === 'android' && <Button title='Back Handler' testID={testIDs.BACK_HANDLER_BUTTON} onPress={this.onClickBackHandler} />}
                 </View>
                 
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
             </View>
         );
+    }
+
+    onClickBackHandler = () => {
+        Navigation.push(this.props.componentId, {
+          component: {
+            name: 'navigation.playground.BackHandlerScreen'
+          }
+        });
     }
 }
 
@@ -57,7 +68,7 @@ const styles = StyleSheet.create({
       margin: 30
     },
     footer: {
-      fontSize: 10,
+      fontSize: 14,
       color: '#888',
       marginTop: 10
     }
