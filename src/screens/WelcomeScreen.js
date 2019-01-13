@@ -1,5 +1,8 @@
 import React, { Component } from 'react'; 
-import { View, Text, StyleSheet  }  from 'react-native'; 
+import { View, Text, StyleSheet  }  from 'react-native';
+import { Navigation } from 'react-native-navigation';
+
+import Button from './Button';
 
 const testIDs = require('../constants.js'); 
 
@@ -31,11 +34,27 @@ class WelcomeScreen extends Component {
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
                 <View style={styles.root} key={'root'}>
                     <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text> 
+                    <Button title='Push Options Screen' testID={testIDs.PUSH_OPTIONS_BUTTON} onPress={this.onClickPushOptionsScreen} />
                 </View>
                 
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
             </View>
         );
+    }
+
+    onClickPushOptionsScreen = () => {
+        Navigation.push(this.props.componentId, {
+          component: {
+            name: 'navigation.playground.OptionsScreen',
+            options: {
+              animations: {
+                push: {
+                  enabled: false
+                }
+              }
+            }
+          }
+        });
     }
 }
 
