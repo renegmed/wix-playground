@@ -1,7 +1,9 @@
-import React, { Component } from 'react';  
-import { View, Text, StyleSheet  }  from 'react-native';
-import { Navigation } from 'react-native-navigation';
+ 
+import React, { Component } from 'react'; 
+import { View, Text, StyleSheet  }  from 'react-native'; 
 import Button from './Button';
+import { Navigation } from 'react-native-navigation';
+ 
 
 const testIDs = require('../constants.js'); 
 
@@ -31,18 +33,138 @@ class WelcomeScreen extends Component {
         return (
             <View style={styles.bar}>
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
+ 
                 <View style={styles.root} key={'root'}> 
                     <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text>
                     <Button title='Switch to tab based app' testID={testIDs.TAB_BASED_APP_BUTTON} onPress={this.onClickSwitchToTabs} /> 
+  
+                    <Button title='Switch to app with side menus' testID={testIDs.TAB_BASED_APP_SIDE_BUTTON} onPress={this.onClickSwitchToSideMenus} />
+ 
                 </View>
                 
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
             </View>
         );
-    } 
  
-    onClickSwitchToTabs = () => {
-
+    } 
+  
+    onClickSwitchToSideMenus = () => { 
+        Navigation.setRoot({
+          root: {
+            sideMenu: {
+              left: {
+                component: {
+                  name: 'navigation.playground.SideMenuScreen',
+                  passProps: {
+                    side: 'left'
+                  }
+                }
+              },
+              center: {
+                bottomTabs: {
+                  children: [
+                    {
+                      stack: {
+                        id: 'tab1Stack',
+                        children: [
+                          {
+                            component: {
+                              name: 'navigation.playground.TextScreen',
+                              passProps: {
+                                text: 'This is a side menu center screen tab 1'
+                              },
+                              // options: {
+                              //   bottomTab: {
+                              //     iconColor: 'red',
+                              //     textColor: 'red',
+                              //     selectedIconColor: 'purple',
+                              //     selectedTextColor: 'purple',
+                              //   }
+                              // }
+                            }
+                          }
+                        ],
+                        options: {
+                          bottomTab: {
+                            iconColor: 'red',
+                            textColor: 'red',
+                            selectedIconColor: 'purple',
+                            selectedTextColor: 'purple',
+                            text: 'Tab 1',
+                            icon: require('../images/one.png'),
+                            testID: testIDs.FIRST_TAB_BAR_BUTTON
+                          }
+                        }
+                      }
+                    },
+                    {
+                      stack: {
+                        children: [
+                          {
+                            component: {
+                              name: 'navigation.playground.TextScreen',
+                              passProps: {
+                                text: 'This is a side menu center screen tab 2'
+                              }
+                            }
+                          }
+                        ],
+                        options: {
+                          bottomTab: {
+                            text: 'Tab 2',
+                            icon: require('../images/two.png'),
+                            testID: testIDs.SECOND_TAB_BAR_BUTTON
+                          }
+                        }
+                      }
+                    },
+                    {
+                      stack: {
+                        children: [
+                          {
+                            component: {
+                              name: 'navigation.playground.TextScreen',
+                              passProps: {
+                                text: 'This is a side menu center screen tab 3'
+                              }
+                            }
+                          }
+                        ],
+                        options: {
+                          bottomTab: {
+                            text: 'Tab 3',
+                            icon: require('../images/three.png'),
+                            testID: testIDs.SECOND_TAB_BAR_BUTTON
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  options: {
+                    bottomTab: {
+                      textColor: '#AED581',
+                      iconColor: '#AED581',
+                      selectedTextColor: '#90CAF9',
+                      selectedIconColor: '#90CAF9',
+                      fontFamily: 'HelveticaNeue-Italic',
+                      fontSize: 13
+                    }
+                  }
+                }
+              },
+              right: {
+                component: {
+                  name: 'navigation.playground.SideMenuScreen',
+                  passProps: {
+                    side: 'right'
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+      onClickSwitchToTabs = () => { 
         Navigation.setRoot({
             root: {
             bottomTabs: {
@@ -136,7 +258,7 @@ class WelcomeScreen extends Component {
           }
             });
         }
-    }  
+}  
   
 const styles = StyleSheet.create({
     root: {
