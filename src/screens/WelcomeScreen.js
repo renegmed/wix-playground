@@ -1,10 +1,9 @@
  
 import React, { Component } from 'react'; 
-import { View, Text, StyleSheet  }  from 'react-native'; 
- 
+import { View, Text, StyleSheet  }  from 'react-native';  
 import { Navigation } from 'react-native-navigation';
-import Button from './Button';
- 
+import Button from './Button'; 
+
 const testIDs = require('../constants.js'); 
 
 class WelcomeScreen extends Component { 
@@ -39,6 +38,9 @@ class WelcomeScreen extends Component {
                 <Button title='Switch to app with side menus' testID={testIDs.TAB_BASED_APP_SIDE_BUTTON} onPress={this.onClickSwitchToSideMenus} />
 
                 <Button title='Push Lifecycle Screen' testID={testIDs.PUSH_LIFECYCLE_BUTTON} onPress={this.onClickLifecycleScreen} />
+
+                <Button title='Static Lifecycle Events' 
+                        testID={testIDs.PUSH_STATIC_LIFECYCLE_BUTTON} onPress={this.onClickShowStaticLifecycleOverlay} />
             </View>
             
             <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
@@ -148,7 +150,7 @@ class WelcomeScreen extends Component {
                   fontSize: 13
                 }
               }
-            }
+            } 
           },
           right: {
             component: {
@@ -257,6 +259,22 @@ class WelcomeScreen extends Component {
       }        
     }) 
   }
+ 
+   
+
+  onClickShowStaticLifecycleOverlay =  () => {
+      Navigation.showOverlay({
+          component: {
+            name: 'navigation.playground.StaticLifecycleOverlay',
+            options: {
+              overlay: {
+                interceptTouchOutside: true
+              }
+            }
+          }
+      }); 
+  }
+ 
 
   onClickLifecycleScreen = () => {
       Navigation.push(this.props.componentId, {
