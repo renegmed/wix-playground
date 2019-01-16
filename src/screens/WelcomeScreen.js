@@ -4,7 +4,6 @@ import { View, Text, StyleSheet  }  from 'react-native';
 import Button from './Button';
 import { Navigation } from 'react-native-navigation';
  
-
 const testIDs = require('../constants.js'); 
 
 class WelcomeScreen extends Component { 
@@ -32,22 +31,21 @@ class WelcomeScreen extends Component {
     render() {
         return (
             <View style={styles.bar}>
-                <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
+                <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} /> 
  
                 <View style={styles.root} key={'root'}> 
                     <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text>
                     <Button title='Switch to tab based app' testID={testIDs.TAB_BASED_APP_BUTTON} onPress={this.onClickSwitchToTabs} /> 
   
                     <Button title='Switch to app with side menus' testID={testIDs.TAB_BASED_APP_SIDE_BUTTON} onPress={this.onClickSwitchToSideMenus} />
- 
+  
                 </View>
                 
                 <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
             </View>
-        );
+        ); 
+    }
  
-    } 
-  
     onClickSwitchToSideMenus = () => { 
         Navigation.setRoot({
           root: {
@@ -164,6 +162,7 @@ class WelcomeScreen extends Component {
           }
         });
       }
+ 
       onClickSwitchToTabs = () => { 
         Navigation.setRoot({
             root: {
@@ -258,8 +257,9 @@ class WelcomeScreen extends Component {
           }
             });
         }
-}  
   
+} 
+ 
 const styles = StyleSheet.create({
     root: {
       flexGrow: 1,
