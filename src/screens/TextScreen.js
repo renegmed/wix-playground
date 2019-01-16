@@ -31,13 +31,12 @@ class TextScreen extends Component {
           {/* tslint:disable-next-line:max-line-length */}
           { Platform.OS === 'android' && <Button title='Hide Tab Bar' testID={testIDs.HIDE_BOTTOM_TABS_BUTTON} onPress={() => this.toggleTabBarVisibility(this.props.componentId, false)} /> }
           { Platform.OS === 'android' && <Button title='Show Tab Bar' testID={testIDs.SHOW_BOTTOM_TABS_BUTTON} onPress={() => this.toggleTabBarVisibility('BottomTabs', true)} /> }
- 
+  
           <Button title='Hide Tab Bar on Push' testID={testIDs.HIDE_BOTTOM_TABS_ON_PUSH_BUTTON} onPress={() => this.hideTabBarOnPush()} />
           <Button title='Show Left Side Menu' testID={testIDs.SHOW_LEFT_SIDE_MENU_BUTTON} onPress={() => this.showSideMenu('left')} />
           <Button title='Show Right Side Menu' testID={testIDs.SHOW_RIGHT_SIDE_MENU_BUTTON} onPress={() => this.showSideMenu('right')} /> 
           <Button title='Push and Pop' testID={testIDs.PUSH_AND_POP_BUTTON} onPress={this.onClickPushPop} />
-  
- 
+   
           <Button title='Dismiss modal' testID={testIDs.DISMISS_MODAL_BUTTON} onPress={this.onClickDismissModal} />
         </View>
       </Bounds>
@@ -47,8 +46,6 @@ class TextScreen extends Component {
   onClickDismissModal = () => {
     Navigation.dismissModal(this.props.componentId);
   }
- 
- 
   
   onClickPushPop = async () => {
     await Navigation.push(this.props.componentId, {
@@ -57,7 +54,7 @@ class TextScreen extends Component {
       }
     });
   }
-  
+    
   showSideMenu(side) { 
     Navigation.mergeOptions(this.props.componentId, {
       sideMenu: {
@@ -67,7 +64,6 @@ class TextScreen extends Component {
       }
     });
   }
-  
  
   hideTabBarOnPush() {
     Navigation.push(this.props.componentId, {
@@ -76,7 +72,7 @@ class TextScreen extends Component {
       }
     });
   }
-  
+   
   toggleTabBarVisibility(componentId, visible) {
     Navigation.mergeOptions(componentId, {
       bottomTabs: {
