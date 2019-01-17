@@ -94,14 +94,7 @@ class StaticLifecycleOverlay extends Component {
             </TouchableOpacity>
         );
     }
-
-    render() {
-        return (
-            <View>
-                <Text>This is static lifecycle overlay</Text>
-            </View>
-        );
-    }
+ 
 }
 
 export default StaticLifecycleOverlay;
